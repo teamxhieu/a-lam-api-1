@@ -1,0 +1,77 @@
+<html class="no-js" lang="en">
+<head>
+    <title><%= title %></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.7/sweetalert2.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            background: #EECDA3;
+            background: -webkit-linear-gradient(to top, #EF629F, #EECDA3);
+            background: linear-gradient(to top, #EF629F, #EECDA3);
+        }
+        .container {
+            max-width: 550px;
+        }
+        .has-error label,
+        .has-error input,
+        .has-error textarea {
+            color: red;
+            border-color: red;
+        }
+        .list-unstyled li {
+            font-size: 13px;
+            padding: 4px 0 0;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <h5 class="card-header text-center">Cài đặt Api</h5>
+            <div class="card-body">
+                <form class="form-edit">
+
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control" name="status">
+                            <option value="on">Hoạt động</option>
+                            <option value="off">Bảo trì</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung thông báo</label>
+                        <input class="form-control" name="msg" type="text" placeholder="Nội dung thông báo">
+                    </div>
+                    <div class="form-group">
+                        <label>Link chuyển hướng</label>
+                        <input class="form-control" name="link" type="text" placeholder="Nội dung thông báo">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Chỉnh sửa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.7/sweetalert2.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(".form-edit").submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "/edit_api",
+            type: "POST",
+            dataType: "JSON",
+            data: $(this).serialize(),
+            success : function (data) {
+                swal('Thông báo',data.msg,data.status);
+            }
+        });
+    });
+});
+</script>
+</html>
